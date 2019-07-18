@@ -1,0 +1,43 @@
+<testsuites name="jest tests" tests="1" failures="1" time="0.613">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2019-07-18T15:06:17" time="0.613" tests="1">
+    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.017">
+      <failure>Invariant Violation: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it&apos;s defined in, or you might have mixed up default and named imports.
+
+Check the render method of `App`.
+    at invariant (/projects/challenge/node_modules/fbjs/lib/invariant.js:42:15)
+    at throwOnInvalidElementType (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:5390:3)
+    at createFiberFromElement (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:5356:19)
+    at createChild (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:7472:28)
+    at reconcileChildrenArray (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:7723:25)
+    at reconcileChildFibers (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:8039:14)
+    at reconcileChildrenAtExpirationTime (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:8158:30)
+    at reconcileChildren (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:8149:5)
+    at updateHostComponent (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:8457:5)
+    at beginWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:8900:16)
+    at performUnitOfWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:11708:16)
+    at workLoop (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:11731:26)
+    at renderRoot (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:11762:9)
+    at performWorkOnRoot (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12318:24)
+    at performWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12239:9)
+    at performSyncWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12216:5)
+    at requestWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12116:7)
+    at scheduleWorkImpl (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:11991:13)
+    at scheduleWork (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:11951:12)
+    at scheduleRootUpdate (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12579:5)
+    at updateContainerAtExpirationTime (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12607:12)
+    at Object.updateContainer (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12626:14)
+    at ReactRoot.Object.&lt;anonymous&gt;.ReactRoot.render (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:15926:15)
+    at /projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:16345:14
+    at Object.unbatchedUpdates (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:12426:12)
+    at legacyRenderSubtreeIntoContainer (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:16341:17)
+    at Object.render (/projects/challenge/node_modules/react-dom/cjs/react-dom.development.js:16409:12)
+    at Object.&lt;anonymous&gt;.it (/projects/challenge/src/App.test.js:7:22)
+    at Object.asyncFn (/projects/challenge/node_modules/jest-jasmine2/build/jasmine-async.js:68:30)
+    at resolve (/projects/challenge/node_modules/jest-jasmine2/build/queueRunner.js:38:12)
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (/projects/challenge/node_modules/jest-jasmine2/build/queueRunner.js:31:21)
+    at Promise.resolve.then.el (/projects/challenge/node_modules/p-map/index.js:46:16)
+    at &lt;anonymous&gt;</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
