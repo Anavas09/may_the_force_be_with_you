@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Film from './Film';
+import FilmList from './FilmList';
+import { CircularProgress } from '@material-ui/core';
 
 class CharList extends Component {
     constructor(props){
@@ -25,7 +26,7 @@ class CharList extends Component {
                     this.setState({
                         name: data.name,
                         eyeColor: data.eye_color,
-                        genre: data.genre,
+                        gender: data.gender,
                         films: data.films
                     })
                 })
@@ -36,8 +37,14 @@ class CharList extends Component {
         return (
             <div>
                 <p>Name: {this.state.name}</p>
-                <p>Eye Color: {this.state.name}</p>
-                <p>Genre: {this.state.name}</p>
+                <p>Eye Color: {this.state.eyeColor}</p>
+                <p>Gender: {this.state.gender}</p>
+                <div key={`123${this.state.name}`}>
+                {this.state.films.length > 0 ?
+                    <FilmList films={this.state.films} whereGo="Films"/>
+                    : <CircularProgress />
+                }
+                </div>
             </div>
         );
     }

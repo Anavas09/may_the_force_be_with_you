@@ -3,7 +3,7 @@ import {
   Link
 } from 'react-router-dom';
 
-const Film = ({film}) => {
+const Film = ({film, whereGo}) => {
     const { episode_id, title, director} = film
     return (
             <div key={episode_id}>
@@ -11,7 +11,7 @@ const Film = ({film}) => {
                 <p>{episode_id}</p>
                 <p>{director}</p>
                 <Link to={`characters/${episode_id}`}>
-                    Characters
+                    {whereGo}
                 </Link>
             </div>
     );

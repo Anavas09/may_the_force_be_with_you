@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { CircularProgress } from '@material-ui/core';
-import Film from './Film';
+import FilmList from './FilmList';
 
 class HomePage extends Component {
     constructor(props) {
@@ -39,16 +39,7 @@ class HomePage extends Component {
             <div>
                 HomePage Component
                 {this.state.films.length > 0 ?
-                    <div>
-                        {this.state.films.map(film => {
-                            return (
-                                <div key={film.episde_id}>
-                                    <Film film={film} />
-                                </div>
-                            )
-                        })
-                        }
-                    </div>
+                    <FilmList films={this.state.films} whereGo="Characters"/>
                     : <CircularProgress />
                 }
             </div>
