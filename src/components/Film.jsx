@@ -3,16 +3,22 @@ import {
   Link
 } from 'react-router-dom';
 
-const Film = ({film, whereGo}) => {
-    const { episode_id, title, director} = film
+const Film = ({filmData, whereGo}) => {
+    const { episode_id, title, director} = filmData
     return (
-            <div key={episode_id}>
+            <div>
                 <p>{title}</p>
                 <p>{episode_id}</p>
                 <p>{director}</p>
-                <Link to={`characters/${episode_id}`}>
-                    {whereGo}
-                </Link>
+                { whereGo === 'Characters' ?
+                    <Link to={`films/${episode_id}/characters`}>
+                        {whereGo}
+                    </Link>
+                    :
+                    <Link to={`films/${episode_id}`}>
+                        {whereGo}
+                    </Link>
+                }
             </div>
     );
 };

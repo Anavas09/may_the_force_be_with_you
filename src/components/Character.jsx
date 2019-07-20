@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import CharList from './CharList';
+import axios from 'axios';
+import { CircularProgress } from '@material-ui/core';
+
+import FilmList from './FilmList';
 
 class Character extends Component {
     constructor(props){
         super(props)
 
         this.state = {
-            fr: []
+            characterURL: '',
+            name: '',
+            eye_color: '',
+            gender: '',
+            films: []
         }
     }
 
@@ -15,28 +22,39 @@ class Character extends Component {
     }
 
     fetchCharacter = () =>{
-        const { episode_id } = this.props.match.params
-        fetch(`https://swapi.co/api/films/${episode_id}`)
-            .then(res => res.json())
-                .then(data => {
-                    this.setState({
-                        fr: data.characters
-                    })
+        const { character } = this.props
+        axios.get(character)
+            .then(res => {
+                const { name, eye_color, gender, films, url } = res.data
+                this.setState({
+                    characterURL: url,
+                    name,
+                    eye_color,
+                    gender,
+                    films
                 })
-        .catch(err => console.error(err))
+            })
+            .catch(err => console.error(err))
     }
 
     render() {
+        const { name, eye_color, gender, films, characterURL  } = this.state
         return (
             <div>
-                <h5>Character Component</h5>
-                {this.state.fr.map(character => {
-                    return (
-                        <div key={character}>
-                            <CharList char={character}/>
-                        </div>
-                    )
-                })}
+                {films.length > 0 ?
+                    <div>
+                        <p>Name: {name}</p>
+                        <p>Eye Color: {eye_color}</p>
+                        <p>Gender: {gender}</p>
+                        <FilmList
+                            films={films}
+                            whereCome={"Characters"}
+                            whereGo={"Films"}
+                            character={characterURL}/>
+                    </div>
+                    :
+                    <CircularProgress />
+                }
             </div>
         );
     }

@@ -6,7 +6,8 @@ import {
 } from 'react-router-dom';
 
 import HomePage from './components/HomePage';
-import Character from './components/Character';
+import FilmList from './components/FilmList';
+import CharacterList from './components/CharacterList';
 
 class App extends Component {
   render() {
@@ -14,7 +15,8 @@ class App extends Component {
       <HashRouter>
         <Switch>
           <Route exact path='/' component={HomePage}  />
-          <Route exact path='/characters/:episode_id' component={Character} />
+          <Route exact path='/films/:episode_id' component={FilmList} />
+          <Route exact path='/films/:episode_id/characters' component={CharacterList} />
         </Switch>
       </HashRouter>
     );

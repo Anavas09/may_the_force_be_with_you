@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import { CircularProgress } from '@material-ui/core';
+import axios from 'axios';
 import FilmList from './FilmList';
 
 class HomePage extends Component {
@@ -9,6 +8,7 @@ class HomePage extends Component {
 
         this.state = {
             selected: '',
+            error: '',
             films: []
         }
     }
@@ -22,10 +22,11 @@ class HomePage extends Component {
                     films: results
                 })
             })
+            .catch(error => this.setState({ error }));
     }
 
-    componentWillMount(){
-        this.fetchData();
+    async componentWillMount(){
+        await this.fetchData();
     }
 
     handleOnSelected = (id) => {
@@ -38,10 +39,7 @@ class HomePage extends Component {
         return (
             <div>
                 HomePage Component
-                {this.state.films.length > 0 ?
-                    <FilmList films={this.state.films} whereGo="Characters"/>
-                    : <CircularProgress />
-                }
+                <FilmList whereCome={"HomePage"} whereGo={"Characters"}/>
             </div>
         );
     }
