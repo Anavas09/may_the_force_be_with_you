@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import FilmList from './FilmList';
 
 class HomePage extends Component {
@@ -11,22 +10,6 @@ class HomePage extends Component {
             error: '',
             films: []
         }
-    }
-
-    fetchData = () => {
-        let url = 'https://swapi.co/api/films'
-        axios.get(url)
-            .then(res => {
-                const { results } = res.data
-                this.setState({
-                    films: results
-                })
-            })
-            .catch(error => this.setState({ error }));
-    }
-
-    async componentWillMount(){
-        await this.fetchData();
     }
 
     handleOnSelected = (id) => {

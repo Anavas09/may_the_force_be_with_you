@@ -3,8 +3,13 @@ import {
   Link
 } from 'react-router-dom';
 
-const Film = ({filmData, whereGo}) => {
-    const { episode_id, title, director} = filmData
+
+//RCC
+
+const Film = (props) => {
+    console.log(props)
+    const { filmData, whereGo } = props
+    const { episode_id, title, director } = filmData
     return (
             <div>
                 <p>{title}</p>
@@ -15,7 +20,7 @@ const Film = ({filmData, whereGo}) => {
                         {whereGo}
                     </Link>
                     :
-                    <Link to={`films/${episode_id}`}>
+                    <Link to={`/films/${episode_id}`}>
                         {whereGo}
                     </Link>
                 }

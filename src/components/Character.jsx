@@ -9,11 +9,11 @@ class Character extends Component {
         super(props)
 
         this.state = {
-            characterURL: '',
             name: '',
             eye_color: '',
             gender: '',
-            films: []
+            films: [],
+            filmData: []
         }
     }
 
@@ -25,32 +25,45 @@ class Character extends Component {
         const { character } = this.props
         axios.get(character)
             .then(res => {
-                const { name, eye_color, gender, films, url } = res.data
+                const { name, eye_color, gender, films } = res.data
                 this.setState({
-                    characterURL: url,
                     name,
                     eye_color,
                     gender,
                     films
+                }, () => {
+                    this.state.films.map(film => {
+                        return (
+                            axios.get(film)
+                            .then(res => {
+                                this.setState({
+                                    filmData: res.data
+                                })
+                            })
+                        )
+                    })
                 })
             })
             .catch(err => console.error(err))
     }
 
     render() {
-        const { name, eye_color, gender, films, characterURL  } = this.state
+        const { name, eye_color, gender, filmData } = this.state
         return (
             <div>
-                {films.length > 0 ?
+                {filmData.url ?
                     <div>
                         <p>Name: {name}</p>
                         <p>Eye Color: {eye_color}</p>
                         <p>Gender: {gender}</p>
-                        <FilmList
-                            films={films}
-                            whereCome={"Characters"}
-                            whereGo={"Films"}
-                            character={characterURL}/>
+                        <h4>
+                            <FilmList
+                                filmData={filmData}
+                                whereCome={"Characters"}
+                                whereGo={"Films"}
+                            />
+                        </h4>
+                        
                     </div>
                     :
                     <CircularProgress />

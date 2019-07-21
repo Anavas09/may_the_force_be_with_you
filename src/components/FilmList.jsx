@@ -10,7 +10,8 @@ class FilmList extends Component {
 
         this.state = {
             error: '',
-            films: []
+            films: [],
+            filmData: []
         }
     }
 
@@ -20,6 +21,7 @@ class FilmList extends Component {
 
     fetchFilms = () => {
         const { whereCome } = this.props
+        console.log(this.props)
         if ( whereCome === "HomePage"){
             const url = 'https://swapi.co/api/films'
             axios.get(url)
@@ -31,35 +33,58 @@ class FilmList extends Component {
                 })
                 .catch(error => this.setState({ error }));
         }else {
-            const { characterURL } = this.props
-            axios.get(characterURL)
+            const { episode_id } = this.props.match.params
+            console.log(episode_id)
+            const url = `https://swapi.co/api/films/${episode_id}`
+            //const { filmData } = this.props
+            //console.log(filmData)
+            axios.get(url)
                 .then(res => {
-                    const { films } = res.data
                     this.setState({
-                        films
-                    })
+                        filmData: res.data
+                    },()=>console.log(this.state.filmData))
                 })
                 .catch(error => this.setState({ error }));
         }
     }
 
     render(){
-        const { films } = this.state
+        const { films, filmData } = this.state
         const { whereGo } = this.props
         return (
             <div>
-                {films.length > 0 ?
+                {whereGo === "Films" ?
                     <div>
-                        {films.map((film,i) => {
-                            return (
-                                <div key={`${i}_${film}`}>
-                                    <Film filmData={film} whereGo={whereGo} />
-                                </div>
-                            )
-                        })}
+                        {filmData ?
+                            <div>
+                                <Film
+                                    filmData={filmData}
+                                    whereGo={whereGo}
+                                />
+                            </div>
+                            :
+                            <CircularProgress/>
+                        }
                     </div>
-                    :
-                    <CircularProgress/>
+                :
+                    <div>
+                        {films.length > 0 ?
+                            <div>
+                                {films.map((film,i) => {
+                                    return (
+                                        <div key={`${i}_${film}`}>
+                                            <Film
+                                                filmData={film}
+                                                whereGo={whereGo}
+                                            />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            :
+                            <CircularProgress/>
+                        }
+                    </div>
                 }
             </div>
         );
