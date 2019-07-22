@@ -40,7 +40,7 @@ class CharacterList extends Component {
                         {characters.map((character, i) => {
                             return (
                                 <div key={`${i}_${character}`}>
-                                    <Character character={character} match={this.props.match}/>
+                                    <Character character={character}/>
                                 </div>
                             )
                             })

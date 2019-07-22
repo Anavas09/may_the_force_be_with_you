@@ -11,14 +11,24 @@ const Film = (props) => {
     const { filmData, whereGo } = props
     const { episode_id, title, director } = filmData
     return (
-            <div>
-                <p>{title}</p>
-                <p>{episode_id}</p>
-                <p>{director}</p>
+            <div className="column card">
+                <p className="films-card__name">{title}</p>
+                <p className="films-card__username">{episode_id}</p>
+                <p className="films-card__name">{director}</p>
+                <div className="films-card__divider"></div>
                 { whereGo === 'Characters' ?
-                    <Link to={`films/${episode_id}/characters`}>
-                        {whereGo}
-                    </Link>
+                    <div>
+                        <div>
+                            <Link to={`/films/${episode_id}/characters`}>
+                                {whereGo}
+                            </Link>
+                        </div>
+                        <div>
+                            <Link to={`/films/${episode_id}`}>
+                                {whereGo}
+                            </Link>
+                        </div>
+                    </div>
                     :
                     <Link to={`/films/${episode_id}`}>
                         {whereGo}
