@@ -15,89 +15,44 @@ class FilmList extends Component {
         }
     }
 
-    async componentDidMount() {
-        await this.fetchFilms()
+    componentDidMount() {
+        this.fetchFilms()
     }
 
-    fetchFilms = () => {
-        const { whereCome } = this.props
-        console.log(this.props)
-        console.log(this.props.match)
-        if ( whereCome === "HomePage"){
-            const url = 'https://swapi.co/api/films'
-            axios.get(url)
-                .then(res => {
-                    const { results } = res.data
-                    this.setState({
-                        films: results
-                    })
-                })
-                .catch(error => this.setState({ error }));
-        }else {
-            const { episode_id } = this.props.match.params
-            const url = `https://swapi.co/api/films/${episode_id}`
-            //const { filmData } = this.props
-            //console.log(filmData)
-            axios.get(url)
-                .then(res => {
-                    this.setState({
-                        filmData: res.data
-                    },()=>console.log(this.state.filmData.url))
-                })
-                .catch(error => this.setState({ error }));
-        }
+    fetchFilms = async () => {
+        const url = 'https://swapi.co/api/films'
+        await axios.get(url)
+            .then(res => {
+                const { results } = res.data
+                this.setState({
+                    filmData: results
+                },()=> console.log(this.state.filmData))
+            })
+            .catch(error => this.setState({ error }),
+            ()=> console.log(this.state.error));
     }
 
     render(){
-        if (this.props.match){
-            const { url } = this.props.match
-            const { episode_id } = this.props.match.params
-            const { filmData } = this.state
-            return (
-                <div>
-                    { url === `/films/${episode_id}` ?
-                        <div>
-                            {filmData.url ?
-                                <div className="cards">
-                                    <Film
-                                        filmData={filmData}
-                                        whereGo={"Characters"}
-                                    />
-                                </div>
-                                :
-                                <CircularProgress/>
-                            }
-                        </div>:'ÑO'
+        const { filmData } = this.state
+        return (
+            <div>
+                <div className="uk-child-width-1-3@m" uk-grid="true">
+                    {filmData.length > 0 ?
+                        filmData.map(film => {
+                            return (
+                                <Film
+                                    key={film.url}
+                                    film={film}
+                                    whereGo={"Characters"}
+                                />
+                            )
+                        })
+                        :
+                        <CircularProgress/>
                     }
                 </div>
-            );
-        }else{
-            const { whereGo } = this.props
-            const { films, filmData } = this.state
-            console.log(`URL: ${filmData.url}, whereGo: ${whereGo}`)
-            return (
-                <div>
-                    <div>
-                        {films.length > 0 ?
-                            <div>
-                                {films.map((film,i) => {
-                                    return (
-                                        <div className="cards" key={`${i}_${film}`}>
-                                            <Film
-                                                filmData={film}
-                                                whereGo={whereGo}
-                                            />
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            :
-                            <CircularProgress/>
-                        }
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        );
     }
 }
 

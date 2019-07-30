@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@material-ui/core';
-
-import FilmList from './FilmList';
+import { Link } from 'react-router-dom';
 
 class Character extends Component {
     constructor(props){
@@ -17,13 +16,13 @@ class Character extends Component {
         }
     }
 
-    async componentDidMount(){
-        await this.fetchCharacter()
+    componentDidMount(){
+        this.fetchCharacter()
     }
 
-    fetchCharacter = () =>{
+    fetchCharacter = async () =>{
         const { character } = this.props
-        axios.get(character)
+        await axios.get(character)
             .then(res => {
                 const { name, eye_color, gender, films } = res.data
                 this.setState({
@@ -32,9 +31,9 @@ class Character extends Component {
                     gender,
                     films
                 }, () => {
-                    this.state.films.map(film => {
+                    this.state.films.map(async (film) => {
                         return (
-                            axios.get(film)
+                            await axios.get(film)
                             .then(res => {
                                 this.setState({
                                     filmData: res.data
@@ -49,6 +48,7 @@ class Character extends Component {
 
     render() {
         const { name, eye_color, gender, filmData } = this.state
+        const url = 'https://swapi.co/api/films'
         return (
             <div>
                 {filmData.url ?
@@ -56,14 +56,11 @@ class Character extends Component {
                         <p>Name: {name}</p>
                         <p>Eye Color: {eye_color}</p>
                         <p>Gender: {gender}</p>
-                        <h4>
-                            <FilmList
-                                filmData={filmData}
-                                whereCome={"Characters"}
-                                whereGo={"Films"}
-                            />
-                        </h4>
-                        
+                        <div className="uk-card-footer">
+                            <Link to={`${url}`} className="uk-button uk-button-secondary">
+                                Films {filmData.length}
+                            </Link>
+                        </div>
                     </div>
                     :
                     <CircularProgress />

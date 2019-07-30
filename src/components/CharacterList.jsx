@@ -13,14 +13,14 @@ class CharacterList extends Component {
         }
     }
 
-    async componentDidMount(){
-        await this.fetchCharacter()
+    componentDidMount(){
+        this.fetchCharacter()
     }
 
-    fetchCharacter = () => {
+    fetchCharacter = async () => {
       const { episode_id } = this.props.match.params
       const url = `https://swapi.co/api/films/${episode_id}`
-      axios.get(url)
+      await axios.get(url)
           .then(res => {
               const { characters } = res.data
               this.setState({
