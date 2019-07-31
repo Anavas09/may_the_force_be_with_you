@@ -8,6 +8,7 @@ class CharacterList extends Component {
         super(props)
 
         this.state = {
+            movieTitle: '',
             characters: [],
             error: ''
         }
@@ -22,19 +23,20 @@ class CharacterList extends Component {
       const url = `https://swapi.co/api/films/${episode_id}`
       await axios.get(url)
           .then(res => {
-              const { characters } = res.data
+              const { characters, title } = res.data
               this.setState({
-                  characters
+                  characters,
+                  movieTitle: title
               })
           })
           .catch(error => this.setState({ error }));
     }
 
     render() {
-        const { characters } = this.state
+        const { characters, movieTitle } = this.state
         return (
             <Fragment>
-                <h5>CharacterList Component</h5>
+                <h3>{movieTitle} CharacterList Component</h3>
                 {characters.length > 0 ?
                     <div className="uk-child-width-1-3@m" uk-grid="true">
                         {characters.map((character, i) => {

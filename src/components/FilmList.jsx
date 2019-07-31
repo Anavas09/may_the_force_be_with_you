@@ -11,6 +11,7 @@ class FilmList extends Component {
         this.state = {
             error: '',
             films: [],
+            whereGo: '',
             filmData: []
         }
     }
@@ -20,20 +21,30 @@ class FilmList extends Component {
     }
 
     fetchFilms = async () => {
-        const url = 'https://swapi.co/api/films'
-        await axios.get(url)
-            .then(res => {
-                const { results } = res.data
-                this.setState({
-                    filmData: results
-                },()=> console.log(this.state.filmData))
-            })
-            .catch(error => this.setState({ error }),
-            ()=> console.log(this.state.error));
+        const { whereCome } = this.props
+        if (whereCome === 'Homepage') {
+            const url = 'https://swapi.co/api/films'
+            await axios.get(url)
+                .then(res => {
+                    const { results } = res.data
+                    this.setState({
+                        filmData: results,
+                        whereGo: 'Characters'
+                    },()=> console.log(this.state.filmData))
+                })
+                .catch(error => this.setState({ error }),
+                ()=> console.log(this.state.error));
+        } else {
+            const { films, whereGo } = this.props
+            this.setState({
+                filmData: films,
+                whereGo
+            },()=> console.log(this.state.filmData))
+        }
     }
 
     render(){
-        const { filmData } = this.state
+        const { filmData, whereGo } = this.state
         return (
             <div className="uk-child-width-1-3@m" uk-grid="true">
                 {filmData.length > 0 ?
@@ -42,7 +53,7 @@ class FilmList extends Component {
                             <Film
                                 key={film.url}
                                 film={film}
-                                whereGo={"Characters"}
+                                whereGo={whereGo}
                             />
                         )
                     })

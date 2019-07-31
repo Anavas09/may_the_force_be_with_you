@@ -50,7 +50,7 @@ class Character extends Component {
                             </div>
                             <div className="uk-card-footer">
                                 <Link to={{
-                                    pathname: `character/${name}`,
+                                    pathname: `character/${name}/films`,
                                     state: {
                                         films
                                     }
