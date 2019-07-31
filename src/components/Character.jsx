@@ -30,42 +30,40 @@ class Character extends Component {
                     eye_color,
                     gender,
                     films
-                }, () => {
-                    this.state.films.map(async (film) => {
-                        return (
-                            await axios.get(film)
-                            .then(res => {
-                                this.setState({
-                                    filmData: res.data
-                                })
-                            })
-                        )
-                    })
                 })
             })
             .catch(err => console.error(err))
     }
 
     render() {
-        const { name, eye_color, gender, filmData } = this.state
-        const url = 'https://swapi.co/api/films'
+        const { name, eye_color, gender, films } = this.state
         return (
-            <div>
-                {filmData.url ?
-                    <div>
-                        <p>Name: {name}</p>
-                        <p>Eye Color: {eye_color}</p>
-                        <p>Gender: {gender}</p>
-                        <div className="uk-card-footer">
-                            <Link to={`${url}`} className="uk-button uk-button-secondary">
-                                Films {filmData.length}
-                            </Link>
+            films.length > 0 ?
+            <div className="uk-card uk-card-default uk-card-hover">
+                <div className="uk-card-header">
+                    <div className="uk-grid-small uk-flex-middle" uk-grid="true">
+                        <div className="uk-width-expand">
+                            <h3 className="uk-card-title uk-margin-remove-bottom">{name}</h3>
+                            <div className="uk-card-body">
+                                <p>Eye Color: {eye_color}</p>
+                                <p>Gender: {gender}</p>
+                            </div>
+                            <div className="uk-card-footer">
+                                <Link to={{
+                                    pathname: `character/${name}`,
+                                    state: {
+                                        films
+                                    }
+                                }} className="uk-button uk-button-secondary">
+                                    {films.length} Films
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                    :
-                    <CircularProgress />
-                }
+                </div>
             </div>
+            :
+            <CircularProgress />
         );
     }
 }

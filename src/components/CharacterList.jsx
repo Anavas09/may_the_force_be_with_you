@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Character from './Character';
 import { CircularProgress } from '@material-ui/core';
@@ -33,23 +33,23 @@ class CharacterList extends Component {
     render() {
         const { characters } = this.state
         return (
-            <div>
+            <Fragment>
                 <h5>CharacterList Component</h5>
                 {characters.length > 0 ?
-                    <div>
+                    <div className="uk-child-width-1-3@m" uk-grid="true">
                         {characters.map((character, i) => {
                             return (
                                 <div key={`${i}_${character}`}>
                                     <Character character={character}/>
                                 </div>
                             )
-                            })
+                        })
                         }
                     </div>
                     :
                     <CircularProgress/>
                 }
-            </div>
+            </Fragment>
         );
     }
 }

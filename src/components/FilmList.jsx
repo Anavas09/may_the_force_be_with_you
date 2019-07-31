@@ -35,22 +35,20 @@ class FilmList extends Component {
     render(){
         const { filmData } = this.state
         return (
-            <div>
-                <div className="uk-child-width-1-3@m" uk-grid="true">
-                    {filmData.length > 0 ?
-                        filmData.map(film => {
-                            return (
-                                <Film
-                                    key={film.url}
-                                    film={film}
-                                    whereGo={"Characters"}
-                                />
-                            )
-                        })
-                        :
-                        <CircularProgress/>
-                    }
-                </div>
+            <div className="uk-child-width-1-3@m" uk-grid="true">
+                {filmData.length > 0 ?
+                    filmData.map(film => {
+                        return (
+                            <Film
+                                key={film.url}
+                                film={film}
+                                whereGo={"Characters"}
+                            />
+                        )
+                    })
+                    :
+                    <CircularProgress/>
+                }
             </div>
         );
     }

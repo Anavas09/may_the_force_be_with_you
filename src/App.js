@@ -9,6 +9,7 @@ import HomePage from './components/HomePage';
 import FilmList from './components/FilmList';
 import CharacterList from './components/CharacterList';
 import Header from './components/Header';
+import CharacterFilms from './components/CharacterFilms';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
                   <Route exact path='/' component={HomePage}  />
                   <Route exact path='/films/:episode_id' component={FilmList} />
                   <Route exact path='/films/:episode_id/characters' component={CharacterList} />
+                  <Route exact path='/films/:episode_id/character/:name' component={CharacterFilms} />
               </Switch>
           </BrowserRouter>
         </div>
