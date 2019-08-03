@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Character from './Character';
 import { CircularProgress } from '@material-ui/core';
+import PaginationGithub from './PaginationGithub';
 
 class CharacterList extends Component {
     constructor(props){
@@ -38,7 +38,8 @@ class CharacterList extends Component {
             <Fragment>
                 <h3>{movieTitle} CharacterList Component</h3>
                 {characters.length > 0 ?
-                    <div className="uk-child-width-1-3@m" uk-grid="true">
+                    <PaginationGithub characters={characters} />
+                    /*<div className="uk-child-width-1-3@m" uk-grid="true">
                         {characters.map((character, i) => {
                             return (
                                 <div key={`${i}_${character}`}>
@@ -47,7 +48,7 @@ class CharacterList extends Component {
                             )
                         })
                         }
-                    </div>
+                    </div>*/
                     :
                     <CircularProgress/>
                 }

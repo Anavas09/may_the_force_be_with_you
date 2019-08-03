@@ -22,7 +22,7 @@ class HomePage extends Component {
         return (
             <div>
                 HomePage Component
-                <FilmList whereCome={"HomePage"} whereGo={"Characters"}/>
+                <FilmList whereCome="HomePage" whereGo="Characters"/>
             </div>
         );
     }

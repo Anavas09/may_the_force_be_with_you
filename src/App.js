@@ -11,6 +11,19 @@ import CharacterList from './components/CharacterList';
 import Header from './components/Header';
 import CharacterFilms from './components/CharacterFilms';
 
+      /*<Fragment>
+        <Header />
+        <div className="uk-container">
+          <BrowserRouter>
+              <Switch>
+                  <Route exact path='/' component={HomePage}  />
+                  <Route exact path='/films/:episode_id' component={FilmList} />
+                  <Route exact path='/films/:episode_id/characters' component={CharacterList} />
+                  <Route exact path='/films/:episode_id/character/:name/films' component={CharacterFilms} />
+              </Switch>
+          </BrowserRouter>
+        </div>
+    </Fragment>*/
 class App extends Component {
   render() {
     return (
@@ -27,7 +40,6 @@ class App extends Component {
           </BrowserRouter>
         </div>
       </Fragment>
-      
     );
   }
 }

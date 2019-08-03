@@ -22,7 +22,7 @@ class FilmList extends Component {
 
     fetchFilms = async () => {
         const { whereCome } = this.props
-        if (whereCome === 'Homepage') {
+        if (whereCome === 'HomePage') {
             const url = 'https://swapi.co/api/films'
             await axios.get(url)
                 .then(res => {
