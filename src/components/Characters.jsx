@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Character from './Character';
 import { CircularProgress } from '@material-ui/core';
 
-class PaginationGithub extends Component {
+class Characters extends Component {
   constructor(props){
     super(props)
 
@@ -12,7 +12,8 @@ class PaginationGithub extends Component {
       characters: characters,
       total: characters.length,
       per_page: 10,
-      current_page: 1
+      current_page: 1,
+      pageNumbers: null
     }
   }
 
@@ -20,7 +21,7 @@ class PaginationGithub extends Component {
     console.log('click')
     this.setState({
       current_page: Number(e.target.id)
-    }, () => console.log(this.state.current_page) );
+    }, () => console.log(`handleOnClickPageNumber: ${this.state.current_page}`) );
     
     /*console.log(`pageNumber: ${pageNumber}`)
     const { characters } = this.props
@@ -50,7 +51,7 @@ class PaginationGithub extends Component {
 
   handleOnClickChangePage = (text) => {
     console.log(text)
-    const { current_page, per_page, characters } = this.state;
+    const { current_page, per_page, total } = this.state;
     if(text === "Previous"){
       if(current_page === 1){
         return null;
@@ -60,11 +61,11 @@ class PaginationGithub extends Component {
         })
       }
     }else{
-      let lastNumber;
-      for (let i = 1; i <= Math.ceil(characters.length / per_page); i++) {
-        lastNumber = i;
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(total / per_page); i++) {
+        pageNumbers.push(i);
       }
-      if(current_page >= lastNumber){
+      if(current_page >= pageNumbers.length){
         return null;
       }else{
         this.setState({
@@ -85,18 +86,19 @@ class PaginationGithub extends Component {
     console.log(`indexOfLastTodo: ${indexOfLastTodo}`)
     console.log(`indexOfFisrtTodo: ${indexOfFirstTodo}`)
     console.log(`currentCharacters: ${currentCharacters.length}`)
+    
     const renderCharacters = currentCharacters ?
       <div className="uk-child-width-1-3@m" uk-grid="true">
-                {currentCharacters.map((character, i) => {
-                    return (
-                            <div key={`${i}_${character}`}>
-                                <Character character={character}/>
-                            </div>
-                    )
-                })}
-            </div>
-            :
-            <CircularProgress />
+        {currentCharacters.map((character, i) => {
+            return (
+                    <div key={`${i}_${character}`}>
+                        <Character character={character}/>
+                    </div>
+            )
+        })}
+      </div>
+      :
+      <CircularProgress />
 
     // Logic for displaying page numbers
     const pageNumbers = [];
@@ -116,12 +118,26 @@ class PaginationGithub extends Component {
       );
     });
 
+    const previous = this.state.current_page === 1 ? null :
+      <li id="Previous" onClick={()=>this.handleOnClickChangePage('Previous')}>
+        <a href="#">
+          <span uk-pagination-previous="true"></span> Previous
+        </a>
+      </li> 
+
+    const next = this.state.current_page === pageNumbers.length ? null :
+      <li id="Next" onClick={()=>this.handleOnClickChangePage('Next')}>
+        <a href="#">Next
+          <span className="uk-margin-small-left" uk-pagination-next="true"></span>
+        </a>
+      </li>
+
     return (
       <div>
         <ul className="uk-pagination uk-flex-center" uk-margin="true">
-        <li onClick={()=>this.handleOnClickChangePage('Previous')}><a href="#"><span uk-pagination-previous="true"></span> Previous</a></li>
+          {previous}
           {renderPageNumbers}
-          <li onClick={()=>this.handleOnClickChangePage('Next')}><a href="#">Next <span className="uk-margin-small-left" uk-pagination-next="true"></span></a></li>
+          {next}
         </ul>
 
         <div>
@@ -129,9 +145,9 @@ class PaginationGithub extends Component {
         </div>
 
         <ul className="uk-pagination uk-flex-center" uk-margin="true">
-        <li onClick={()=>this.handleOnClickChangePage('Previous')}><a href="#"><span uk-pagination-previous="true"></span> Previous</a></li>
+          {previous}
           {renderPageNumbers}
-          <li onClick={()=>this.handleOnClickChangePage('Next')}><a href="#">Next <span className="uk-margin-small-left" uk-pagination-next="true"></span></a></li>
+          {next}
         </ul>
       </div>
     );
@@ -139,4 +155,4 @@ class PaginationGithub extends Component {
 
 }
 
-export default PaginationGithub;
+export default Characters;
