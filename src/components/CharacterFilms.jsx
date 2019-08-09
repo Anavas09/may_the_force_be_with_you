@@ -40,11 +40,12 @@ class CharacterFilms extends Component {
         
         return (
             <div>
-                <button
-                    className="uk-button uk-button-secondary"
-                    onClick={() => goBack()}
-                > Back
-                </button>
+                <input
+                    type="button"
+                    className="btn btn-lg btn-secondary btn-block"
+                    onClick={()=> goBack()}
+                    value="Back"
+                />
                 
                 <h1>{name} Films</h1>
                 {characterFilms.length === films.length ?

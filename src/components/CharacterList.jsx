@@ -37,11 +37,13 @@ class CharacterList extends Component {
         return (
             <Fragment>
                 <h3>{movieTitle} CharacterList Component</h3>
-                {characters.length > 0 ?
-                    <Characters characters={characters} />
-                    :
-                    <CircularProgress/>
-                }
+                <div className="col-12 p-5 row">
+                    {characters.length > 0 ?
+                        <Characters characters={characters} />
+                        :
+                        <CircularProgress/>
+                    }
+                </div>
             </Fragment>
         );
     }

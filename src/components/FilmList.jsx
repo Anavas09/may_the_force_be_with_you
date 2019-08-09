@@ -46,7 +46,7 @@ class FilmList extends Component {
     render(){
         const { filmData, whereGo } = this.state
         return (
-            <div className="uk-child-width-1-3@m" uk-grid="true">
+            <div className="col-12 p-5 row">
                 {filmData.length > 0 ?
                     filmData.map(film => {
                         return (

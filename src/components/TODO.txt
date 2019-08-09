@@ -1,0 +1,2 @@
+Fetch movies gif and asigned to each movie details.
+Fetch characters and asigned each character gif to each movie gif.

@@ -39,26 +39,23 @@ class Character extends Component {
         const { name, eye_color, gender, films } = this.state
         return (
             films.length > 0 ?
-            <div className="uk-card uk-card-default uk-card-hover">
-                <div className="uk-card-header">
-                    <div className="uk-grid-small uk-flex-middle" uk-grid="true">
-                        <div className="uk-width-expand">
-                            <h3 className="uk-card-title uk-margin-remove-bottom">{name}</h3>
-                            <div className="uk-card-body">
-                                <p>Eye Color: {eye_color}</p>
-                                <p>Gender: {gender}</p>
-                            </div>
-                            <div className="uk-card-footer">
-                                <Link to={{
-                                    pathname: `character/${name}/films`,
-                                    state: {
-                                        films
-                                    }
-                                }} className="uk-button uk-button-secondary">
-                                    {films.length} Films
-                                </Link>
-                            </div>
-                        </div>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                <div className="card border-primary">
+                    <h4 className="card-header">{name}</h4>
+                    <div className="card-body">
+                        <p className="card-text">Eye Color: {eye_color}</p>
+                        <p className="card-text">Gender: {gender}</p>
+                    </div>
+                    <div className="card-footer">
+                        <Link to={{
+                            pathname: `character/${name}/films`,
+                            state: {
+                                films
+                            }
+                        }} className="btn btn-secondary">
+                            <span className="badge badge-primary badge-pill">
+                            {films.length}</span> Films
+                        </Link>
                     </div>
                 </div>
             </div>

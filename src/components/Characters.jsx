@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Character from './Character';
 import { CircularProgress } from '@material-ui/core';
 
@@ -12,41 +12,15 @@ class Characters extends Component {
       characters: characters,
       total: characters.length,
       per_page: 10,
-      current_page: 1,
-      pageNumbers: null
+      current_page: 1
     }
   }
 
-  handleOnClickPageNumber = (e) => {
+  handleOnClickPageNumber = (number) => {
     console.log('click')
     this.setState({
-      current_page: Number(e.target.id)
+      current_page: number
     }, () => console.log(`handleOnClickPageNumber: ${this.state.current_page}`) );
-    
-    /*console.log(`pageNumber: ${pageNumber}`)
-    const { characters } = this.props
-    if(pageNumber !== 1){
-      if(characters.length>10) {
-        let charInit = characters.slice(0,10)
-        let charUTen = characters.slice(charInit.length,characters.length)
-        console.log(`charUTen: ${charUTen.length}`)
-        this.setState({
-          users: charUTen,
-          total: characters.length,
-          per_page: 10,
-          current_page: pageNumber
-        });
-      }
-    }else{
-        let charInit = characters.slice(0,10)
-        console.log(`charInit: ${charInit.length}`)
-        this.setState({
-            users: charInit,
-            total: characters.length,
-            per_page: 10,
-            current_page: 1
-        });
-    }*/
   }
 
   handleOnClickChangePage = (text) => {
@@ -88,12 +62,10 @@ class Characters extends Component {
     console.log(`currentCharacters: ${currentCharacters.length}`)
     
     const renderCharacters = currentCharacters ?
-      <div className="uk-child-width-1-3@m" uk-grid="true">
+      <div className="col-12 p-5 row">
         {currentCharacters.map((character, i) => {
             return (
-                    <div key={`${i}_${character}`}>
-                        <Character character={character}/>
-                    </div>
+              <Character key={`${i}_${character}`} character={character}/>
             )
         })}
       </div>
@@ -109,47 +81,58 @@ class Characters extends Component {
     const renderPageNumbers = pageNumbers.map(number => {
       return (
         <li
+          className="page-item"
           key={number}
           id={number}
-          onClick={this.handleOnClickPageNumber}
+          onClick={() => this.handleOnClickPageNumber(number)}
         >
-          {number}
+          <button className="page-link" href="#">{number}</button>
         </li>
       );
     });
 
-    const previous = this.state.current_page === 1 ? null :
-      <li id="Previous" onClick={()=>this.handleOnClickChangePage('Previous')}>
-        <a href="#">
-          <span uk-pagination-previous="true"></span> Previous
-        </a>
+    const previous = this.state.current_page === 1 ?
+      <li id="Previous" className="page-item disabled" onClick={()=>this.handleOnClickChangePage('Previous')}>
+        <button type="button" className="btn btn-info mr-1">
+          &laquo; Previous
+        </button>
+      </li>
+      :
+      <li id="Previous" className="page-item" onClick={()=>this.handleOnClickChangePage('Previous')}>
+        <button type="button" className="btn btn-info mr-1">
+          &laquo; Previous
+        </button>
       </li> 
 
-    const next = this.state.current_page === pageNumbers.length ? null :
-      <li id="Next" onClick={()=>this.handleOnClickChangePage('Next')}>
-        <a href="#">Next
-          <span className="uk-margin-small-left" uk-pagination-next="true"></span>
-        </a>
+    const next = this.state.current_page === pageNumbers.length ?
+      <li id="Next" className="page-item disabled" onClick={()=>this.handleOnClickChangePage('Next')}>
+        <button type="button" className="btn btn-info ml-1">
+          Next &raquo;
+        </button>
+      </li>
+      :
+      <li id="Next" className="page-item" onClick={()=>this.handleOnClickChangePage('Next')}>
+        <button type="button" className="btn btn-info ml-1">
+          Next &raquo;
+        </button>
       </li>
 
     return (
-      <div>
-        <ul className="uk-pagination uk-flex-center" uk-margin="true">
+      <Fragment>
+        <ul className="pagination mx-auto">
           {previous}
           {renderPageNumbers}
           {next}
         </ul>
 
-        <div>
-          {renderCharacters}
-        </div>
+        {renderCharacters}
 
-        <ul className="uk-pagination uk-flex-center" uk-margin="true">
+        <ul className="pagination mx-auto">
           {previous}
           {renderPageNumbers}
           {next}
         </ul>
-      </div>
+      </Fragment>
     );
   }
 
