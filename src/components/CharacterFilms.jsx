@@ -1,65 +1,56 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FilmList from './FilmList';
 import { CircularProgress } from '@material-ui/core';
 
-class CharacterFilms extends Component {
-    constructor(props){
-        super(props)
+function CharacterFilms(props){
 
-        this.state = {
-            tam: '',
-            characterFilms: [],
-            error: ''
-        }
-    }
+    const [tam, setTam] = useState('');
+    const [characterFilms, setCharacterFilms] = useState([]);
+    const [error, setError] = useState('');
 
-    componentDidMount() {
-        this.fetchFilms()
-    }
-
-    fetchFilms = async () => {
-        const { films } = this.props.location.state
-        await films.map( async (film) => {
-            await axios.get(film)
-            .then(res => {
-                this.setState({
-                    tam: this.state.characterFilms.push(res.data)
+    useEffect(()=> {
+        const fetchFilms = async () => {
+            const { films } = props.location.state
+            await films.map( async (film) => {
+                await axios.get(film)
+                .then(res => {
+                    setTam(characterFilms.push(res.data))
                 })
+                .catch(err => {
+                    setError(err)
+                    console.log(error)
+                });
             })
-            .catch(error => this.setState({ error }),
-            ()=> console.log(this.state.error));
-        })
-    }
-
-    render() {
-        const { characterFilms } = this.state
-        const { goBack } = this.props.history
-        const { name } = this.props.match.params
-        const { films } = this.props.location.state
-        
-        return (
-            <div>
-                <input
-                    type="button"
-                    className="btn btn-lg btn-secondary btn-block"
-                    onClick={()=> goBack()}
-                    value="Back"
+        }
+        fetchFilms();
+    })
+    
+    const { goBack } = props.history
+    const { name } = props.match.params
+    const { films } = props.location.state
+    
+    return (
+        <div>
+            <input
+                type="button"
+                className="btn btn-lg btn-secondary btn-block"
+                onClick={()=> goBack()}
+                value="Back"
+            />
+            
+            <h1>{name} Films</h1>
+            {characterFilms.length === films.length ?
+                <FilmList
+                    whereCome="Character"
+                    whereGo="Characters"
+                    films={characterFilms}
                 />
-                
-                <h1>{name} Films</h1>
-                {characterFilms.length === films.length ?
-                    <FilmList
-                        whereCome="Character"
-                        whereGo="Characters"
-                        films={characterFilms}
-                    />
-                    :
-                    <CircularProgress />
-                }
-            </div>
-        );
-    }
+                :
+                <CircularProgress />
+            }
+        </div>
+    );
 }
 
 export default CharacterFilms;

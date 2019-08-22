@@ -1,68 +1,56 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@material-ui/core';
 
 import Film from './Film'
 
-class FilmList extends Component {
-    constructor(props){
-        super(props)
+function FilmList(props){
 
-        this.state = {
-            error: '',
-            films: [],
-            whereGo: '',
-            filmData: []
-        }
-    }
+    const [error, setError] = useState('');
+    const [whereGo, setWhereGo] = useState('');
+    const [filmData, setFilmData] = useState([]);
 
-    componentDidMount() {
-        this.fetchFilms()
-    }
-
-    fetchFilms = async () => {
-        const { whereCome } = this.props
-        if (whereCome === 'HomePage') {
-            const url = 'https://swapi.co/api/films'
-            await axios.get(url)
-                .then(res => {
-                    const { results } = res.data
-                    this.setState({
-                        filmData: results,
-                        whereGo: 'Characters'
-                    },()=> console.log(this.state.filmData))
-                })
-                .catch(error => this.setState({ error }),
-                ()=> console.log(this.state.error));
-        } else {
-            const { films, whereGo } = this.props
-            this.setState({
-                filmData: films,
-                whereGo
-            },()=> console.log(this.state.filmData))
-        }
-    }
-
-    render(){
-        const { filmData, whereGo } = this.state
-        return (
-            <div className="col-12 p-5 row">
-                {filmData.length > 0 ?
-                    filmData.map(film => {
-                        return (
-                            <Film
-                                key={film.url}
-                                film={film}
-                                whereGo={whereGo}
-                            />
-                        )
+    useEffect(()=> {
+        fetchFilms = async () => {
+            const { whereCome } = props
+            if (whereCome === 'HomePage') {
+                const url = 'https://swapi.co/api/films'
+                await axios.get(url)
+                    .then(res => {
+                        const { results } = res.data
+                        setFilmData(results)
+                        setWhereGo('Characters')
                     })
-                    :
-                    <CircularProgress/>
-                }
-            </div>
-        );
-    }
+                    .catch(err => {
+                        setError(err)
+                        console.log(error)
+                    });
+            } else {
+                const { films, whereGo } = props
+                setFilmData(films)
+                setWhereGo(whereGo)
+            }
+        }
+    })
+
+    const { filmData, whereGo } = this.state
+    return (
+        <div className="col-12 p-5 row">
+            {filmData.length > 0 ?
+                filmData.map(film => {
+                    return (
+                        <Film
+                            key={film.url}
+                            film={film}
+                            whereGo={whereGo}
+                        />
+                    )
+                })
+                :
+                <CircularProgress/>
+            }
+        </div>
+    );
 }
 
 export default FilmList;

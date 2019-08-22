@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Film = (props) => {
+function Film(props){
     const { film, whereGo } = props;
     const { episode_id, title, director } = film;
     let { opening_crawl, url } = film;
@@ -20,7 +20,7 @@ const Film = (props) => {
 
     return (
         <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-            <div className="card border-primary">
+            <div className="card border-warning">
                 <h4 className="card-header">{title}</h4>
                 <div className="card-body">
                     <h6 className="card-title">Episodio {episode_id}</h6>

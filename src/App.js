@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,26 +11,24 @@ import CharacterList from './components/CharacterList';
 import Header from './components/Header';
 import CharacterFilms from './components/CharacterFilms';
 
-class App extends Component {
-  render() {
-    return (
-      <Fragment>
-        <Header />
-        <div className="app container">
-          <div className="row justify-content-center">
-            <Router>
-              <Switch>
-                <Route exact path='/' component={HomePage}  />
-                <Route exact path='/films/:episode_id' component={FilmList} />
-                <Route exact path='/films/:episode_id/characters' component={CharacterList} />
-                <Route exact path='/films/:episode_id/character/:name/films' component={CharacterFilms} />
-              </Switch>
-            </Router>
-          </div>
+function App(){
+  return (
+    <Fragment>
+      <Header />
+      <div className="app container">
+        <div className="row justify-content-center">
+          <Router>
+            <Switch>
+              <Route exact path='/' component={HomePage}  />
+              <Route exact path='/films/:episode_id' component={FilmList} />
+              <Route exact path='/films/:episode_id/characters' component={CharacterList} />
+              <Route exact path='/films/:episode_id/character/:name/films' component={CharacterFilms} />
+            </Switch>
+          </Router>
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 }
 
 export default App;
