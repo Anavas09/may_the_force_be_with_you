@@ -1,21 +1,21 @@
-import React, { Component, Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import Character from './Character';
 import { CircularProgress } from '@material-ui/core';
 
 function Characters(props){
 
-  const [characters, setCharacters] = useState(props.characters)
-  const [total, setTotal] = useState(props.characters.length)
-  const [per_page, setPer_page] = useState(10)
+  const [characters] = useState(props.characters)
+  const [total] = useState(props.characters.length)
+  const [per_page] = useState(10)
   const [current_page, setCurrent_Page] = useState(1)
 
-  handleOnClickPageNumber = (number) => {
+  const handleOnClickPageNumber = (number) => {
     console.log('click')
     setCurrent_Page(number)
     console.log(`handleOnClickPageNumber: ${current_page}`) 
   }
 
-  handleOnClickChangePage = (text) => {
+  const handleOnClickChangePage = (text) => {
     console.log(text)
     if(text === "Previous"){
       if(current_page === 1){

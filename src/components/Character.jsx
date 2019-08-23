@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,6 @@ function Character(props){
     const [eye_color, setEye_Color] = useState('')
     const [gender, setGender] = useState('')
     const [films, setFilms] = useState([])
-    const [filmData, setFilmData] = useState([])
 
     useEffect(()=> {
         const fetchCharacter = async () =>{
@@ -25,7 +24,7 @@ function Character(props){
                 .catch(err => console.error(err))
         }
         fetchCharacter();
-    })
+    },[])
     
     return (
         films.length > 0 ?

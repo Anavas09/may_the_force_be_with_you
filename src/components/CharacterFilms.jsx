@@ -24,7 +24,7 @@ function CharacterFilms(props){
             })
         }
         fetchFilms();
-    })
+    },[])
     
     const { goBack } = props.history
     const { name } = props.match.params

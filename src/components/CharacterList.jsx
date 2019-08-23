@@ -25,7 +25,7 @@ function CharacterList(props){
                 });
         }
         fetchCharacter();
-    })
+    },[])
 
 
     return (

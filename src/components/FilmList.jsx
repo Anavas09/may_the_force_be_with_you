@@ -11,7 +11,7 @@ function FilmList(props){
     const [filmData, setFilmData] = useState([]);
 
     useEffect(()=> {
-        fetchFilms = async () => {
+        const fetchFilms = async () => {
             const { whereCome } = props
             if (whereCome === 'HomePage') {
                 const url = 'https://swapi.co/api/films'
@@ -31,9 +31,9 @@ function FilmList(props){
                 setWhereGo(whereGo)
             }
         }
-    })
+        fetchFilms();
+    },[])
 
-    const { filmData, whereGo } = this.state
     return (
         <div className="col-12 p-5 row">
             {filmData.length > 0 ?
